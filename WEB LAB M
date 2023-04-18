@@ -466,7 +466,590 @@ EXECUTION PROCEDURE:
 7. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as
 http://localhost/ cgi-bin/Labprogram5a.pl [Enter]
 
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+b) Write a Perl program to accept UNIX command from a HTML form and to display the 
+output of the command executed.
+
+***********************************************************************************************************************************
+SOLUTION:
+Lab5b.html
+<html>
+<head><title>UNIX Command Execution</title></head>
+<body bgcolor="lightgreen">
+<form method="get" action="http://localhost/cgi-bin/Lab5b.pl">
+<center><b>ENTER THE UNIX COMMAND<br><br>
+Command &nbsp; <input type="text" name="cmd"></b><br><br>
+<input type="submit" value="CLICK">
+</centre></form>
+</body>
+</html>
+
+Lab5b.pl
+#!/usr/bin/perl
+print "content-type:text/html\n\n";
+use CGI;
+$cgi=new CGI;
+$cmd=$cgi->param("cmd");
+print "<html><body bgcolor=lightgreen><center><b>";
+print "output of the UNIX command executed is<br><br>";
+system($cmd);
+print "</b></center></body></html>";
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+ [root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/html
+ [root@localhost ~]# cd /var/www/html
+4. Type the above HTML code and save the file.
+ [root@localhost html]# gedit Lab5b.html 
+5. Change the directory to /var/www/cgi-bin
+ [root@localhost cgi-bin]# cd /var/www/cgi-bin
+6. Type the above Perl code and save the file.
+ [root@localhost cgi-bin]# gedit Lab5b.pl 
+5. Check for errors
+ [root@localhost cgi-bin]# perl Lab5b.pl [Enter]
+6. Change the permissions
+ [root@localhost cgi-bin]# chmod 777 Lab5b.pl
+7. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as 
+ http://localhost/Lab5b.html [Enter]
+ 
+
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
 
+6. a) Write a Perl program to accept the User Name and display a greeting message 
+randomly chosen from a list of 4 greeting messages.
+
+*******************************************************************************************************************************************
+SOLUTION:
+Lab6a.html
+<html>
+<head><title>Greeting Message</title></head>
+<body bgcolor="lightgreen">
+<form method="get" action="http://localhost/cgi-bin/Lab6a.pl">
+<center><b>Enter your Name</b><br><br>
+<b>Name</b>&nbsp;<input type="text" name="nam"><br><br>
+<input type="submit" value="CLICK">
+</center></form></body></html>
+Lab6a.pl:
+#!/usr/bin/perl 
+use CGI;
+print "content-type:text/html\n\n";
+$cgi=new CGI;
+$usr=$cgi->param("nam");
+@a=("hi","hru","welcome","wt u dng");
+$greet=rand(4);
+print "<html><body bgcolor=lightgreen><center><b>";
+print "Hi $usr your greeting message is:<br>$a[$greet]";
+print "</b></center></body></html>";
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+ [root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/html
+ [root@localhost ~]# cd /var/www/html
+4. Type the above HTML code and save the file.
+ [root@localhost html]# gedit Lab6a.html 
+5. Change the directory to /var/www/cgi-bin
+ [root@localhost html]# cd /var/www/cgi-bin
+6. Type the above Perl code and save the file.
+ [root@localhost cgi-bin]# gedit Lab6a.pl 
+5. Check for errors
+ [root@localhost cgi-bin]# perl Lab6a.pl [Enter]
+6. Change the permissions
+ [root@localhost cgi-bin]# chmod 777 Lab6a.pl
+7. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as 
+ http://localhost/Lab6a.html [Enter]
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+b) Write a Perl program to keep track of the number of visitors visiting the web page and 
+to display this count of visitors, with proper headings.
+
+**************************************************************************************************************************************
+SOLUTION:
+Lab6b.pl
+#!/usr/bin/perl
+print "content-type:text/html\n\n";
+open(IN,"<visit.txt");
+$count=<IN>;
+close(IN);
+open(OUT,">visit.txt");
+$count++;
+print OUT $count;
+close(OUT);
+print "<html><body bgcolor=lightgreen><center><b>";
+print "Number of Vistors to this page is::$count";
+print "</b></center></body></html>";
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+ [root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/cgi-bin
+ [root@localhost ~]# cd /var/www/cgi-bin
+4. Type the above Perl code and [save the file]
+ [root@localhost cgi-bin]# gedit Lab6b.pl 
+5. Check for errors
+ [root@localhost cgi-bin]# perl Lab6b.pl [Enter]
+6.Change the permissions
+ [root@localhost cgi-bin]# chmod 777 Lab6b.pl
+7. Change the file permissions (visit.txt)
+ [root@localhost cgi-bin]# chmod 777 visit.txt
+8. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as 
+ http://localhost/ cgi-bin/Lab6b.pl [Enter]
+ 
+ ----------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ 
+ 7. Write a Perl program to display a digital clock which displays the current time of the 
+server.
+
+****************************************************************************************************************************************************
+SOLUTION:
+Labprogram7.pl
+#!/usr/bin/perl
+print "content-type:text/html\n\n";
+print "<html><title>Digital Clock</title><head>";
+print "<META HTTP-EQUIV=refresh content=0";
+print " URL=http://localhost/cgi-bin/Lab7.pl>";
+($s,$m,$h)=localtime(time);
+print "<body bgcolor=lightgreen><center><b>”;
+print “DIGITAL CLOCK IS SHOW BELOW<br><br>";
+print "$h:$m:$s</b></center></html>";
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+ [root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/cgi-bin
+ [root@localhost ~]# cd /var/www/cgi-bin
+4. Type the above Perl code and save the file.
+ [root@localhost cgi-bin]# gedit Labprogram7.pl 
+5. Check for errors
+ [root@localhost cgi-bin]# perl Labprogram7.pl [Enter]
+6.Change the permissions
+ [root@localhost cgi-bin]# chmod 777 Labprogram7.pl
+7. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as 
+ http://localhost/ cgi-bin/Labprogram7.pl [Enter]
+ 
+ ---------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ 
+ 
+ 8. Write a Perl program to insert name and age information entered by the user into a 
+table created using MySQL and to display the current contents of this table.
+
+**************************************************************************************************************************************************
+SOLUTION:
+Lab8.html
+<html>
+<head><title>Name & Age Insertion</title></head>
+<body bgcolor="lightgreen">
+<form method="get" action="http://localhost/cgi-bin/Lab8.pl">
+<center><b>Enter the following information</b><br><br>
+NAME &nbsp; <input type="text" name="nam"><br><br>
+AGE &nbsp; <input type="text" name="age"><br><br>
+<input type="submit" value="insert">
+</center></form></body></html>
+Lab8.pl
+#!/usr/bin/perl
+use DBI;
+use CGI;
+print "content-type:text/html\n\n";
+$ab=new CGI;
+$nam=$ab->param("nam");
+$age=$ab->param("age");
+$con=DBI->connect("DBI:mysql:web","sirmvit","cse");
+$res=$con->prepare("insert into age_info values('$nam','$age')");
+$res->execute();
+$res1=$con->prepare("select * from age_info");
+$res1->execute();
+$len=$res1->rows;
+print "<html><body bgcolor=lightgreen><center>";
+if($len <= 0)
+{
+print "No rows found";
+}
+else
+{
+print "The database table contents shown below<br><br><table border=1>";
+print "<tr><td>NAME</td><td>AGE</td></tr>";
+while(@data=$res1->fetchrow_array())
+{
+print "<tr><td>$data[0]</td><td>$data[1]</td></tr>";
+}
+print "</table>";
+}
+print "</center></body></html>";
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+ [root@localhost ~]# systemctl start httpd.service [Enter]
+3. Start Mysql Server
+ [root@localhost ~]# systemctl start mysqld.service [Enter]
+4. Create Database and Table to insert Name & Age information.
+[root@localhost ~]#mysql [Enter]
+mysql> create database web;
+Query OK, 1 row affected (0.08 sec)
+mysql> use web;
+Database changed
+mysql> grant all on web.* to sirmvit@localhost identified by 'cse';
+Query OK, 0 rows affected (0.10 sec)
+mysql> create table age_info(name varchar(20) primary key, age int);
+Query OK, 0 rows affected (0.08 sec)
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+mysql>exit
+5. Change the directory to /var/www/html
+ [root@localhost ~]# cd /var/www/html
+6. Type the above HTML code and save the file.
+ [root@localhost html]# gedit Lab8.html 
+7. Change the directory to /var/www/cgi-bin
+ [root@localhost cgi-bin]# cd /var/www/cgi-bin
+6. Type the above Perl code and save the file.
+ [root@localhost cgi-bin]# gedit Lab8.pl 
+5. Check for errors
+ [root@localhost cgi-bin]# perl Lab8.pl [Enter]
+6. Change the permissions
+ [root@localhost cgi-bin]# chmod 777 Lab8.pl
+7. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as 
+ http://localhost/Lab8.html [Enter]
+ 
+ 
+ ---------------------------------------------------------------------------------------------------------------------------------------
+ 
+ 
+ 9. Write a PHP program to store current date-time in a COOKIE and display the ‘Last 
+visited on’ date-time on the web page upon reopening of the same page.
+
+******************************************************************************************************************************************
+SOLUTION:
+<?php
+ $expire_days=60*60*24*30+time();
+ setcookie("visitdate",date("G:i:s a - m/d/y"),$expire_days);
+ if(isset($_COOKIE["visitdate"]))
+ {
+ $lastvisit=$_COOKIE["visitdate"];
+ print "<center><br><b> Last visited on:$lastvisit";
+ }
+ else
+ {
+ print "please set the cookie";
+ }
+print "</b></center>";
+?>
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+ [root@localhost ~]# systemctl start httpd.service
+3. Open new terminal & change the directory to /var/www/html
+ [root@localhost ~]# cd /var/www/html
+4. Type the above PHP code and save the file.
+ [root@localhost html]# gedit Lab9.php
+5. Check for errors
+ [root@localhost html]# php Lab9.php [Enter]
+6. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as 
+ http://localhost/Lab9.php [Enter]
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+10. Write a PHP program to store page views count in SESSION, to increment the count on 
+each refresh, and to show the count on web page.
+
+*******************************************************************************************************************************************
+SOLUTION:
+<?php
+session_start();
+session_register("pageviewcount");
+if(!isset($_SESSION["pageviewcount"]))
+{
+$_SESSION["pageviewcount"]=0;
+}
+else
+{
+$_SESSION["pageviewcount"]++;
+}
+print "<center><b>The number of page views count:”;
+print “_SESSION[pageviewcount]</b></center>";
+?>
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+ [root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/html
+ [root@localhost html]# cd /var/www/html
+4. Type the above PHP code and save the file.
+ [root@localhost html]# gedit Lab10.php 
+5. Check for errors
+ [root@localhost html]# php Lab10.php [Enter]
+6. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as 
+ http://localhost/Lab10.php [Enter]
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+11. Create a XHTML form with Name, Address Line 1, Address Line 2, and E-mail text 
+fields. On submitting, store the values in MySQL table. Retrieve and display the data based 
+on Name.
+
+*****************************************************************************************************************************************************************
+SOLUTION:
+Lab11.html
+<?xml version="1" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C/DTD XHTML 1.1//EN"
+ "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Main Form</title></head>
+<body bgcolor="lightgreen">
+<center><b>SELECT THE FOLLOWING OPTION</b><br /><br />
+<a href="Lab11a.html">CLICK HERE TO INSERT DATA INTO DATABASE 
+TABLE</a><br /><br />
+<a href ="Lab11b.html">CLICK HERE TO SEARCH FOR A NAME</a>
+</center></body></html>
+
+Lab11a.html
+<?xml version="1" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C/DTD XHTML 1.1//EN"
+ "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Insertion Page</title></head>
+<body bgcolor="lightgreen">
+<form method="get" action="insert.php">
+<center><b>Enter the following Information</b><br /><br />
+<table border="0">
+<tr><td>NAME </td><td><input type="text" name="nam"></td></tr>
+<tr><td>ADDR LINE1 </td><td><input type="text" name="add1"></td></tr>
+<tr><td>ADDR LINE2 </td><td><input type="text" name="add2"></td></tr>
+<tr><td>EMAIL </td><td><input type="text" name="email"></td></tr>
+</table><br />
+<input type="submit" value="INSERT">
+</center></form>
+</body></html>
+
+Lab11b.html
+<?xml version="1" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C/DTD XHTML 1.1//EN"
+ "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Search for a Name</title></head>
+<body bgcolor="lightgreen">
+<form method="get" action="search.php">
+<center><b>Enter the Name <br /><br />
+Name &nbsp; <input type="text" name="nam"></b><br /><br />
+<input type="submit" value="SEARCH">
+</center></form></body></html>
+
+
+insert.php
+<?php
+$name=$_GET["nam"];
+$add1=$_GET["add1"];
+$add2=$_GET["add2"];
+$email=$_GET["email"];
+mysql_connect("localhost","sirmvit","ise");
+mysql_select_db("address");
+mysql_query("insert into person_info values('$name','$add1','$add2','$email')");
+$res=mysql_query("select * from person_info");
+$len=mysql_num_rows($res);
+print "<html><body bgcolor=lightgreen><center>";
+if($len>0)
+{
+print "<b>The Database table contents shown below<br><br>";
+print "<table border=1><tr><td>Name</td><td>Address 1</td>";
+print "<td>Address 2</td><td>Email</td></tr>";
+while($data=mysql_fetch_row($res))
+{
+print "<tr><td>$data[0]</td>";
+print "<td>$data[1]</td>";
+print "<td>$data[2]</td>";
+print "<td>$data[3]</td></tr>";
+}
+print "</table>";
+else
+{ 
+print "no rows found";
+}
+print "</b></center></body></html>";
+mysql_close($con);
+?>
+
+search.php
+<?php
+$nam=$_GET["nam"];
+$con=mysql_connect("localhost","sirmvit","ise");
+mysql_select_db("address");
+$res=mysql_query("select * from person_info where name='$nam'");
+print "<html><body bgcolor=lightgreen><center><b>";
+if(mysql_num_rows($res) >0)
+{
+print "The Searched Results shown below<br><br>";
+print "<table border=1><tr><td>NAME</td><td>ADDRESS 1</td>";
+print "<td>ADDRESS 2</td><td>EMAIL</td></tr>";
+while($a=mysql_fetch_row($res))
+{
+ print"<tr><td>$a[0]</td>";
+ print"<td>$a[1]</td>";
+ print "<td>$a[2]</td>";
+ print "<td>$a[3]</td></tr>";
+}
+print "</table>";
+}
+else
+{
+print "No rows Found";
+}
+print "</b></center></body></html>";
+?>
+
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+ [root@localhost ~]# systemctl start httpd.service [Enter]
+3. Start Mysql Server
+ [root@localhost ~]# systemctl start mysqld.service [Enter]
+4. Create Database and Table to insert address information.
+[root@localhost ~]#mysql [Enter]
+mysql> create database address;
+Query OK, 1 row affected (0.08 sec)
+mysql> use address;
+Database changed
+mysql> grant all on address.* to sirmvit@localhost identified by 'ise';
+Query OK, 0 rows affected (0.10 sec)
+mysql> create table person_info(name varchar(20),add1 varchar(30),add2 
+ varchar(30),email varchar(20) primary key);
+Query OK, 0 rows affected (0.08 sec)
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+mysql>exit
+5. Change the directory to /var/www/html
+ [root@localhost ~]# cd /var/www/html
+6. Type the above HTML code 
+ [root@localhost html]# gedit Lab11.html [save the file]
+ [root@localhost html]# gedit Lab11a.html [save the file]
+ [root@localhost html]# gedit Lab11b.html [save the file]
+5. Type the above PHP code 
+ [root@localhost html]# gedit insert.php [save the file]
+ [root@localhost html]# php insert.php [check for errors]
+ [root@localhost html]# gedit search.php [save the file]
+ [root@localhost html]# php search.php [check for errors]
+6. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as 
+ http://localhost/Lab11.php [Enter]
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+12. Build a Rails application to accept book information viz. Accession number, title, 
+authors, edition and publisher from a web page and store the information in a database 
+and to search for a book with the title specified by the user and to display the search results 
+with proper headings.
+SOLUTION:
+Installation:
+Step 1: download InstantRails zip file from www.rubyforge.org/projects/instantrails for 
+ windows.
+Step 2: Unzip InstantRails where you want it to reside.
+Step 3: Start InstantRails: This is done by clicking the thick I, which is the icon of the Instant
+ Rails application, in the directory in which Instant Rails was installed. A small 
+ window then opens, as shown in the following figure.
+Steps to create rails Application:
+Step 1: Open a Ruby console window through Instant Rails by clicking the black "I" button 
+ Rails Applications -> Open Ruby Console Window. This entry opens a command-line 
+ window in the rails_apps subdirectory of the directory in which Instant Rails was 
+ installed
+ Step 2: Create new rails application in the rails_apps directory with the following command.
+ >rails -d mysql labprogram12
+ Where labprogram12, name of the rails application. Next is move to the 
+ labprogram12 directory.
+Step 3: Configure the database: It is customary in Rails applications to use three copies of the 
+ database: one for development, one for testing, and one for production. The 
+ configurations of three databases are constructed with the following single command:
+ labprogram12>rake db:create:all
+The Rails response to this command is
+(in C:/InstantRails-2.0-win/rails_apps/labprogram12)
+Step 4: Create Database Table: The following command is used to create database table with 
+ five columns: acct, of integer type; title, of string type; author, of string type; edition, 
+ of string type; publication, of string type.
+ labprogram12>ruby script/generate scaffold bookinfo acct:integer title:string
+ author:string edition:string pub:string
+Step 5: Create migration: the following command is used to migrate database table.
+ labprogram12>rake db:migrate
+ The Rails response to this command is
+ (in C:/InstantRails-2.0-win/rails_apps/labprogram12)
+ == 1 CreateBookinfos: migrating =================================
+ -- create_table(:bookinfos)
+ -> 0.0630s
+ == 1 CreateBookinfos: migrated (0.0630s) ==========================
+Step 6: Start WEBrick Server: the following command is used to start WEBrick server to test 
+ Rails application.
+ labprogram12>ruby script/server
+Step 7: Go to browser and type in the URL as http://localhost:3000/bookinfos, we will get a 
+ Display shown below.
+Step 8: Insert book information by clicking on New bookinfo. Click Create button after 
+ entering the fields.
+ Step 9: Press CTRL+C in command prompt (Ruby console window) and type the following 
+ command to create new controller called main.
+ labprogram12>ruby script/generate controller main [Enter]
+ the above command will create a file called main_controller.rb in 
+ C:\InstantRails-2.0-win\rails_apps\labprogram12\app\controllers
+Step 10: Create a file called search.html.erb file in C:\InstantRails-2.0-win\rails_apps\
+ labprogram12\app\views\main with the following content.
+ <html>
+<head><title>Search Book Information</title></head>
+<body bgcolor="lightgreen">
+<form action="search_book">
+<center><b>Enter the Book Title<br><br>
+Title&nbsp;<input type="text" name="title"><br><br>
+<input type="submit" value="submit">
+</b></center></form></body></html>
+ Step 11: Open the file called main_controller.rb (C:\InstantRails-2.0-win\rails_apps\ 
+ labprogram12\app\controllers) and type the following code and save the file.
+class MainController < ApplicationController
+def search_book
+@title=params[:title]
+@book_search= Bookinfo.find(:all,:conditions=>["title=?",@title])
+end
+end
+Step 12: Create a file called search_book.html.erb file in C:\InstantRails-2.0-win\rails_apps\
+ labprogram12\app\views\main with the following content.
+<html>
+<head><title>Searched Book Information</title></head>
+<body bgcolor="lightgreen">
+<center><b>
+<% if @book_search.length == 0 %>
+ No Rows found
+<% else %>
+The Book Information shown below<br><br>
+<table border=1>
+<tr><td>ACCT</td><td>TITLE</td> <td>AUTHOR</td>
+<td>EDITION</td><td>PUBLICATION</td></tr>
+<% @book_search.each do |book| %>
+<tr>
+ <td><%=book.acct%></td>
+ <td><%=book.title%></td>
+ <td><%=book.author%></td>
+ <td><%=book.edition%></td>
+ <td><%=book.pub%></td>
+</tr>
+<% end %>
+</table>
+<% end %>
+</b></center>
+</body>
+</html>
+Step 13: Go to browser and type in the URL as http://localhost:3000/main/search, we will
+ get a Display shown below.
+ Step 14: The web page displays the searched results 
 
