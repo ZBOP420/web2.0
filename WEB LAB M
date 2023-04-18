@@ -1,0 +1,472 @@
+1. Develop and demonstrate a XHTML file that includes JavaScript script for the following
+problems:
+a) Input: A number n obtained using prompt
+Output: The first n Fibonacci numbers
+
+*********************************************************************************************
+SOLUTION:
+<?xml version = "1.0" encoding = "utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head><title> Fibonacci</title></head>
+<body bgcolor="lightgreen">
+<script type="text/JavaScript">
+var fib1=0,fib2=1,fib=0;
+var num = prompt("Enter a number","");
+if(num!=null && num>0)
+{
+document.write("<h1> The Fibonacci Numbers are </h1><br />");
+if(num==1)
+document. write("<h1> "+ fib1 + "</h1>");
+else
+document.write("<h1>" + fib1 + "</h1>");
+document.write("<h1>" + fib2 + "</h1>");
+for(i=3;i<=num; i++)
+{
+fib= fib1 + fib2;
+document.write("<h1> " + fib + "</h1>");
+fib1=fib2;
+fib2=fib;
+}
+}
+else
+alert("No Proper Input");
+</script>
+</body>
+</html>
+------------------------------------------------------------------------------------------------
+
+
+2. a) Develop and demonstrate, using JavaScript, a XHTML document that collects the
+USN ( the valid format is: A digit from 1 to 4 followed by two upper-case characters
+followed by two digits followed by two upper-case characters followed by three digits; no
+embedded spaces allowed) of the user. Event handler must be included for the form
+element that collects this information to validate the input. Messages in the alert windows
+must be produced when errors are detected.
+
+************************************************************************************************
+SOLUTION:
+<?xml version = "1.0" encoding = "utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head><title>USN Validation</title>
+<script type="text/javascript">
+function validateUSN()
+{
+var usn = document.getElementById("usn");
+var usnExp=/[1-4][A-Z][A-Z][0-9][0-9][A-Z][A-Z][0-9][0-9][0-9]$/;
+if(usn.value.length == 0)
+{
+alert("USN feild is empty");
+usn.focus();
+return false;
+}
+else if(!usn.value.match(usnExp))
+{
+alert("US Number is not correct");
+usn.focus();
+return false;
+}
+alert("US Number "+usn.value+" IS CORRECT");
+return true;
+}
+</script>
+</head>
+<body bgcolor="lightgreen">
+<form>
+<br/><br/><center>
+<b>Enter USN &nbsp;</b> <input type="text" id="usn"/> <br /><br />
+<input type="submit" value="Check USN" onClick="validateUSN()"/>
+</center>
+</form>
+</body>
+</html>
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+[root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/html
+[root@localhost ~]# cd /var/www/html
+4. Type the above XHTML code and save the file.
+[root@localhost html]# gedit Labprogram2a.html
+5. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as
+http://localhost/ Labprogram2a.html [Enter]
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+b) Modify the above program to get the current semester also (restricted to be a number
+from 1 to 8).
+SOLUTION:
+<?xml version = "1.0" encoding = "utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head><title>USN & Sem Validation </title>
+<script type="text/javascript">
+function validateUSN()
+{
+var usn = document.getElementById("usn");
+var sem = document.getElementById("sem");
+var usnExp = /[1-4][A-Z][A-Z][0-9][0-9][A-Z][A-Z][0-9][0-9][0-9]$/;
+var semExp = /[1-8]$/;
+if(usn.value.length == 0 || sem.value.length == 0)
+{
+alert("Please Enter Empty feilds");
+return false;
+}
+else if(!usn.value.match(usnExp))
+{
+alert("Entered US Number is not correct");
+usn.focus();
+return false;
+}
+else if(!sem.value.match(semExp))
+{
+alert("Entered Sem is not correct");
+sem.focus();
+return false;
+}
+alert(" Entered USN "+usn.value+ " & Sem "+sem.value+ " is Correct");
+return true;
+}
+</script>
+</head>
+<body bgcolor="lightgreen">
+<form>
+<br/><center><b>Enter the following <br/><br/>
+USN &nbsp; <input type="text" id="usn"/> <br /><br />
+SEM &nbsp; <input type="text" id="sem"/></b> <br /><br />
+<input type="submit" value="Check USN & SEM" onClick="validateUSN()"/>
+</center>
+</form>
+</body>
+</html>
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+[root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/html
+[root@localhost ~]# cd /var/www/html
+4. Type the above XHTML code and save the file.
+[root@localhost html]# gedit Labprogram2b.html
+5. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as
+http://localhost/ Labprogram2b.html [Enter]
+
+
+--------------------------------------------------------------------------------------------------------
+
+
+3. a) Develop and demonstrate, using JavaScript script, a XHTML document that contains
+three short paragraphs of text, stacked on top of each other, with only enough of each
+showing so that the mouse cursor can be placed over some part of them. When the cursor is
+placed over the exposed part of any paragraph, it should rise to the top to become
+completely visible.
+
+********************************************************************************************************
+SOLUTION:
+<?xml version = "1.0" encoding = "utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Paragraphs stacked on each other</title>
+<style type="text/css">
+.para1{width:300px;background-color:green;position:absolute;
+top:100px;left:200px;z-index:0;}
+.para2{width:300px;background-color:cyan;position:absolute;
+top:120px;left:220px;z-index:0;}
+.para3{width:300px;background-color:purple;position:absolute;
+top:140px;left:240px;z-index:0;}
+</style>
+<script type="text/javascript">
+var topLayer="1";
+function mover(toTop)
+{
+var oldTop=document.getElementById(topLayer).style;
+var newTop=document.getElementById(toTop).style;
+oldTop.zIndex="0";
+newTop.zIndex="10";
+topLayer=toTop;
+}
+</script>
+</head>
+<body><body bgcolor="lightgreen">
+<center><h2>Paragraphs stacked on each other shown below</h2>
+<div class="para1" id="1" onmouseover="mover('1')">
+Rails is a development framework for Web-based applications that access databases. A
+framework is a system in which much of the more-or-less standard software
+parts are furnished by the framework, so they need not be written by the applications
+developer.
+</div>
+<div class="para2" id="2" onmouseover="mover('2')">
+The original goal of JavaScript was to provide programming capability at both the server and
+the client ends of a Web connection. Since then, JavaScript has grown into a full-fledged
+programming language that can be used in a variety of application areas.
+</div>
+<div class="para3" id="3" onmouseover="mover('3')">
+PHP is usually purely interpreted, as is the case with JavaScript. However, recent PHP
+implementations perform some precompilation, at least on complex scripts, which increases
+the speed of interpretation.
+</div>
+</center>
+</body>
+</html>
+
+
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+[root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/html
+[root@localhost ~]# cd /var/www/html
+4. Type the above XHTML code and save the file.
+[root@localhost html]# gedit Labprogram3a.html
+5. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as
+http://localhost/ Labprogram3a.html [Enter]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+b) Modify the above document so that when a paragraph is moved from the top stacking
+position, it returns to its original position rather than to the bottom.
+
+**********************************************************************************************************
+SOLUTION:
+<?xml version = "1.0" encoding = "utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE HTML PUBLIC "-//w3c//DTD XHTML 1.1//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>Paragraphs stacked on each other</title>
+<style type="text/css">
+.para1{width:300px;background-color:green;position:absolute;
+top:100px;left:200px;z-index:0;}
+.para2{width:300px;background-color:cyan;position:absolute;
+top:120px;left:220px;z-index:0;}
+.para3{width:300px;background-color:purple;position:absolute;
+top:140px;left:240px;z-index:0;}
+</style>
+<script type="text/javascript">
+var topLayer="3";
+var origPos;
+function mover(toTop,pos)
+{
+var newTop=document.getElementById(toTop).style;
+newTop.zIndex="10";
+topLayer=document.getElementById(toTop).id;
+origPos=pos;
+}
+function moveBack()
+{
+document.getElementById(topLayer).style.zIndex=origPos;
+}
+</script></head>
+<body bgcolor="lightgreen">
+<center>
+<h1> Paragraphs stacked on each other</h1>
+<div class="para1" id="1" onmouseover="mover('1','1')" onmouseout="moveBack()">
+Rails is a development framework for Web-based applications that access databases. A
+framework is a system in which much of the more-or-less standard software parts are furnished
+by the framework, so they need not be written by the applications developer.
+</div>
+<div class="para2" id="2" onmouseover="mover('2','2')" onmouseout="moveBack()">
+The original goal of JavaScript was to provide programming capability at both the server and
+the client ends of a Web connection. Since then, JavaScript has grown into a full-fledged
+programming language that can be used in a variety of application areas.
+</div>
+<div class="para3" id="3" onmouseover="mover('3','3')" onmouseout="moveBack()">
+PHP is usually purely interpreted, as is the case with JavaScript. However, recent PHP
+implementations perform some precompilation, at least on complex scripts, which increases the
+speed of interpretation.
+</div>
+</center>
+</body>
+</html>
+
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+[root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/html
+[root@localhost ~]# cd /var/www/html
+4. Type the above XHTML code and save the file.
+[root@localhost html]# gedit Labprogram3b.html
+5. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as
+http://localhost/ Labprogram3b.html [Enter]
+------------------------------------------------------------------------------------------------------------
+
+
+
+4. a) Design an XML document to store information about a student in an engineering
+college affiliated to VTU. The information must include 100 USN, Name, Name of the
+College, Brach, Year of Joining, and e-mail id. Make up sample data for 3 students. Create
+a CSS style sheet and use it to display the document.
+
+**********************************************************************************************************
+SOLUTION:
+Labprogram4a.xml
+<?xml version = "1.0" encoding ="utf-8"?>
+<?xml-stylesheet type = "text/css" href = "Labprogram4a.css " ?>
+<vtu>
+<student-info>
+<usn>1MV14CS001</usn>
+<name>abc</name>
+<college>SIR MVIT</college>
+<branch>CSE</branch>
+<year>2014</year>
+<email>abc@gmail.com</email>
+</student-info>
+<student-info>
+<usn>1MV14IS003</usn>
+<name>xyz</name>
+<college>SIR MVIT</college>
+<branch>ISE</branch>
+<year>2014</year>
+<email>xyz@gmail.com</email>
+</student-info>
+<student-info>
+<usn>1NC14CS001</usn>
+<name>def</name>
+<college>NCET</college>
+<branch>CSE</branch>
+<year>2014</year>
+<email>def@gmail.com</email>
+</student-info>
+</vtu>
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Labprogram4a.css
+usn{font-family:'sans serif';color:orange;font-size:15pt;}
+name{font-family:'arial';color:red;font-size:15pt;}
+college{font-family:'Times New Roman';color:lime;font-size:15pt;}
+branch{font-family:'Comic Sans MS';color:gray;font-size:15pt;}
+year{font-family:'Century Gothic';color:blue;font-size:15pt;}
+email{font-family:'Georgia';color:green;font-size:15pt;}
+
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+[root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/html
+[root@localhost ~]# cd /var/www/html
+4. Type the above XML code and save the file
+[root@localhost html]# gedit Labprogram4a.xml
+5. Type the above CSS code and save the file
+[root@localhost html]# gedit Labprogram4a.css
+6. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as
+http://localhost/ Labprogram4a.xml [Enter]
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+b) Create an XSLT style sheet for one student element of the above document and use it to
+create a display of that element.
+
+**********************************************************************************************************************
+SOLUTION:
+Labprogram4b.xml
+<?xml version = "1.0" encoding ="utf-8"?>
+<?xml-stylesheet type = "text/xsl" href = "Labprogram4b.xsl" ?>
+<vtu>
+<student-info>
+<usn>1MV14IS001</usn>
+<name>ABC</name>
+<college>SIR MVIT</college>
+<branch>ISE</branch>
+<year>2014</year>
+<email>abc@gmail.com</email>
+</student-info>
+</vtu>
+Labprogram4b.xsl
+<?xml version = "1.0" encoding="utf-8"?>
+<xsl:stylesheet version = "1.0" xmlns:xsl = "http://www.w3.org/1999/XSL/Transform"
+xmlns = "http://www.w3.org/1999/xhtml">
+<xsl:template match = "vtu">
+<html><head><title>XML Page with XSL </title>
+</head><body bgcolor="lightgreen">
+<center><h2> VTU SYUDENT INFORMATION </h2>
+<table border="1">
+<tr><td>USN</td><td>NAME</td><td>COLLEGE</td><td>BRANCH</td><td>YEAR</td>
+<td>EMAIL</td></tr>
+<xsl:for-each select ="student-info">
+<tr><td> <xsl:value-of select = "usn" /></td>
+<td><xsl:value-of select = "name" /></td>
+<td><xsl:value-of select = "college" /></td>
+<td> <xsl:value-of select = "branch" /></td>
+<td><xsl:value-of select = "year" /></td>
+<td><xsl:value-of select = "email" /></td></tr>
+</xsl:for-each></table></center>
+</body></html>
+</xsl:template></xsl:stylesheet>
+
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+[root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/html
+[root@localhost ~]# cd /var/www/html
+4. Type the above XML code and save the file.
+[root@localhost html]# gedit Labprogram4b.xml
+5. Type the above XSL code and save the file
+[root@localhost html]# gedit Labprogram4b.xsl
+6. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as
+http://localhost/ Labprogram4b.xml [Enter]
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
+5. a) Write a Perl program to display various Server Information like Server Name, Server
+Software, Server protocol, CGI Revision etc.
+
+***************************************************************************************************************************************
+SOLUTION:
+#!/usr/bin/perl
+print "content-type:text/html\n\n";
+print "<html><head><title>Server information</title></head>";
+print "<body bgcolor=lightgreen>";
+print "<center><b>Server information is shown below<br><br>";
+print "<table border=1><tr><td><b>ENV VARIABLE</b></td>";
+print "<td><b>ENV VALUE</b></td></tr>";
+foreach $a( sort keys %ENV)
+{
+print "<tr><td>$a</td>";
+print "<td>$ENV{$a}</td></tr>";
+}
+print "</table></b></center></body></html>";
+
+
+
+EXECUTION PROCEDURE:
+1. Login into LINUX OS through root credentials
+2. Start Apache web Server
+[root@localhost ~]# systemctl start httpd.service
+3. Change the directory to /var/www/cgi-bin
+[root@localhost cgi-bin]# cd /var/www/cgi-bin
+4. Type the above Perl code ad save the file.
+[root@localhost cgi-bin]# gedit Labprogram5a.pl
+5. Check for errors
+[root@localhost cgi-bin]# perl Labprogram5a.pl [Enter]
+6.Change the permissions
+[root@localhost cgi-bin]# chmod 777 Labprogram5a.pl [Enter]
+7. Go to web browser (Mozilla Firefox or Konqueror) and type in the URL as
+http://localhost/ cgi-bin/Labprogram5a.pl [Enter]
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
