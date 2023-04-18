@@ -1,0 +1,239 @@
+                                                                      ADDITIONAL PROGRAMS
+
+
+
+
+
+1. Develop and demonstrate a XHTML document that illustrates the use external style
+sheet, ordered list, table, borders, padding, color, and the <span> tag.
+
+***********************************************************************************************************************************************************************
+SOLUTION:
+external.css
+table{font-family:times new roman;
+ font-size:10pt;
+ border-style:solid;
+ border-color:red;}
+td{ padding:10pt;}
+li{list-style-type:lower-roman;
+ font-family:times new roman;
+ font-size:14pt;
+ font-weight:bold;color:gray;}
+body{background-color:lightgreen;}
+p{color:blue;}
+span{text-decoration:underline;color:orange;}
+demo.html
+<?xml version = "1.0" encoding = "utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+ "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head>
+<link rel="stylesheet" type="text/css" href=" external.css" />
+<title> Demonstrate external style sheets </title>
+</head><body>
+<h3>order list demo shown below:</h3>
+<ol>
+<li>web lab</li><li>cn lab</li>
+</ol>
+<h3>table, border and padding demo shown below :</h3>
+<table border="1"><tr><td>USN</td><td>NAME</td></tr>
+<tr><td>VITcs123</td><td>XYZ</td></tr></table><br />
+<h3>color demo shown below:</h3>
+<p>web programming lab</p>
+<h3>span demo shown below :</h3>
+Welcome to <span> web</span> programming lab</body></html>
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+2. Develop and demonstrate a XHTML file that includes JavaScript script that uses
+functions for the following problem:
+Parameter: A string Output: The position in the string of the left-most vowel
+
+*********************************************************************************************************************************************************************
+SOLUTION:
+vowel.html :
+<?xml version = "1.0" encoding = "utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+ "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head><title>Search for vowel</title>
+<script type="text/javascript">
+function findpos()
+{
+var str=prompt("Enter the String:","");
+ var pos=str.search(/a|e|i|o|u|A|E|I|O|U/);
+ var len=str.length;
+alert("length of the string is:"+len);
+ if(pos >= 0)
+ alert("Position of the leftmost vowel is" +pos);
+ else
+ alert("vowel is not found ");
+}
+</script>
+</head>
+<body bgcolor="lightgreen">
+<center> Click here to enter the String : <input type="submit" value="CLICK!"
+onClick="findpos()" />
+</center></body></html>
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+3. Develop and demonstrate a XHTML file that includes JavaScript script that uses 
+functions for the following problem: 
+Parameter: A number 
+Output: The number with its digits in the reverse order.
+
+**********************************************************************************************************************************************************************
+SOLUTION:
+reverse.html:
+<?xml version = "1.0" encoding = "utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+ "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head>
+<script type="text/javascript">
+function reverse(number)
+{ 
+var alphaExp = /^[0-9]+$/;
+if(!number.value.match(alphaExp))
+{
+alert("Input should be positive numeric");
+return false;
+}
+var rn=0, n= number.value;
+while(n!=0)
+{
+ r = n%10; 
+ n = Math.floor(n/10);
+ rn = rn*10 + r; 
+}
+alert("The " + number.value + " in reverse is " + rn);
+}
+</script>
+</head>
+<body bgcolor="lightgreen"><br />
+<center>Enter a number :
+<input type=text name="no"><br /><br />
+<input type="button" value="REVERSE" onclick="reverse(no)"/ >
+</center></body>
+</html>
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+4. Using PHP and MySQL, develop a program to accept book information viz.Accession 
+number, title, authors, edition and publisher from a web page and store the information in 
+a database and to search for a book with the title specified by the user and to display the 
+search results with proper headings. 
+
+***********************************************************************************************************************************************************************
+SOLUTION:
+main.html :
+<html>
+<head><title>Main form</title></head>
+<body bgcolor="lightgreen">
+<center><b>SELECT THE FOLLOWING OPTION</b><br /><br />
+<a href="insert.html">CLICK HERE TO INSERT INTO DATABASE TABLE</a><br /><br />
+<a href ="search.html">CLICK HERE TO SEARCH FOR A BOOK </a>
+</center></body></html>
+insert.html :
+<html>
+<head><title>insert into database</title></head>
+<body bgcolor="lightgreen">
+<form method="get" action="insert.php">
+<center><b>ENTER THE FOLLWING FIELDS</b><br><br>
+<table>
+<tr><td>ACC NO</td> <td><input type="text" name="nam"></td></tr>
+<tr><td>TITLE</td> <td> <input type="text" name="title"></td></tr>
+<tr><td>AUTHOR</td><td> <input type="text" name="author"></td></tr>
+<tr><td>EDITION</td><td><input type="text" name="edition"></td></tr>
+<tr><td>PUBLICATION</td><td> <input type="text" name="pub"></td></tr></table>
+<br><br>
+<input type="submit" value="INSERT">
+</center></form></body></html>
+
+search.html :
+<html>
+<head><title>Search Page</title></head>
+<body bgcolor="lightgreen">
+<form method="get" action="search.php">
+<center><b>ENTER THE TITLE OF THE BOOK TO BE SEARCH</b><br><br>
+TITLE OF THE BOOK <input type="text" name="nam"><br><br>
+<input type="submit" value="SEARCH">
+</center></form></body></html>
+
+insert.php :
+<html><body bgcolor="lightgreen"><center>
+<b>DATABASE CONTENTS ARE SHOWN BELOW</b><br><br>
+<?php
+$acc=$_GET["nam"];
+$title=$_GET["title"];
+$author=$_GET["author"];
+$ed=$_GET["edition"];
+$pub=$_GET["pub"];
+$con=mysql_connect("localhost","dbuser","dbpwd");
+mysql_select_db("web");
+$res=mysql_query("insert into book_info values('$acc','$title','$author','$ed','$pub')");
+?>
+<table border=1>
+<tr><td>ACC NO</td><td>TITLE </td> <td>AUTHOR 
+</td><td>EDITION</td><td>PUBLICATION</td></tr>
+<?php
+$res1=mysql_query("select * from book_info");
+while($a=mysql_fetch_row($res1))
+{
+ print"<tr><td>$a[0]</td>";
+ print"<td>$a[1]</td>";
+ print "<td>$a[2]</td>";
+ print "<td>$a[3]</td>";
+print "<td>$a[4]</td></tr>";
+}
+?>
+</table><br><a href="main.html">CLICK HERE TO GO HOME</a></center></body></html>
+
+
+search.php :
+<html><body bgcolor="lightgreen"><center>
+<b>DATABASE CONTENTS ARE SHOWN BELOW</b><br><br>
+<?php
+$title=$_GET["nam"];
+$con=mysql_connect("localhost","dbuser","dbpwd");
+mysql_select_db("web");
+$res=mysql_query("select * from book_info where title='$title'");
+?>
+<?php
+if(mysql_num_rows($res) >0)
+{
+ print “<table border=1>”;
+ print “<tr><td>ACCT NO</td><td>TITLE</td>”;
+ print “<td>AUTHOR</td><td>EDITION</td>”;
+ print “<td>PUBLICATION</td></tr>”;
+while($a=mysql_fetch_row($res))
+{
+ print"<tr><td>$a[0]</td>";
+ print"<td>$a[1]</td>";
+ print "<td>$a[2]</td>";
+ print "<td>$a[3]</td>";
+print "<td>$a[4]</td></tr>";
+}
+}
+else
+{
+print "no rows found";
+}
+?>
+</table>
+<a href="main.html">CLICK HERE TO GO HOME</a></center>
+</body>
+</html>
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
