@@ -1,0 +1,30 @@
+Step 1: run XAMPP application with MySQL
+
+
+Step 2: create a new php file connect.php
+(accommodate required statements to establish connection with your database)
+<?php
+$db_host='localhost';
+$db_user='root';
+$db_passwd='';
+$db_name="Demo";//Give the name as per your DB
+$dbh = mysqli_connect($db_host,$db_user,$db_passwd, $db_name)
+or
+die("Error connecting to the database");
+echo"connection is success";//not required only for first time use
+?>
+
+Step 3: Create file testdb.php
+(accommodated required statements to interact with your database and fetch information and display it on home screen)
+?php
+include("connect.php"); // including connect.php file into testdb.php
+$query = "select name from user_info"; // user_info is a table from Demo database
+$result = mysqli_query($dbh,$query) or
+die("Error querying the database");
+echo "<br/>";
+echo"fetching success"; // not required only for initial code
+echo "<br/>";
+while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) //mysqli_fetch_assoc($result);
+{
+echo "NAME: " . $row['name']."<br/>";
+}
